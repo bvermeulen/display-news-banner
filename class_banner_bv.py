@@ -73,13 +73,13 @@ while run:
 
         # display news source and time of update
         Banner.create_text(banner_tl[0]+padding,banner_tl[1], anchor='nw',text=datetime, width=banner_x,font=font_time,fill='black')
-        news_title   = feed["entries"][i].title
 
         # display the news item title
+        news_title   = feed["entries"][i].title
         Banner.create_text(banner_tl[0]+padding,banner_tl[1]+40, anchor='nw',text=news_title, width=banner_x,font=font_title,fill='black')     
-        news_summary = space + feed["entries"][i].summary + space
 
         # show the summary of the new items as scrolling right to left
+        news_summary = space + feed["entries"][i].summary + space
         text = Banner.create_text(banner_tl[0]+padding,banner_tl[1]+80, anchor='nw',text=news_summary, font=font_summary,fill='blue')
         for p in range(pixels):
             # move text object by increments dx, dy
