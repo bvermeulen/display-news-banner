@@ -8,7 +8,7 @@ Python 3.6
 
 A news banner application to show news headlines from http://www.nu.nl/rss/Algemeen
 
-Use: python news_banner.py
+Use: python news_banner_v1.py
 
 Exit by pressing "Escape" or the root window exit (X)
 
