@@ -105,6 +105,7 @@ class Controls:
             self.site_button[x].config(relief = 'raised', bg = self.orig_bg)
         self.news_site = site
         self.exit_banner = True
+        self.pause = False
         self.site_button[site].config(relief = 'sunken', bg = 'grey')
 
     def exit_news(self,*event):
