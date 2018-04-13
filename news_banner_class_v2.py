@@ -39,8 +39,8 @@ def main():
     root.protocol('WM_DELETE_WINDOW', control.exit_news)
     
     news.news_window()
+    control.site_select(news_site)
     control.reset_controls()
-    control.news_site = news_site
 
     while control.run:
         news_site = control.news_site
