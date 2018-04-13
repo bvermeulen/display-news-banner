@@ -146,9 +146,11 @@ class Display:
     font_reference   = ('Calibri',  8)
 
     def __init__(self, root, control, width, height, list_sites):
-        self.root           = root        
+        self.root           = root   
+        self.control        = control     
         self.width          = width
         self.height         = height   # note this parameter is not used
+        self.list_sites     = list_sites
 
         self.title_x        = self.width - 2*self.padding
         self.newsbox_x      = self.width - 2*self.padding                                    
@@ -156,7 +158,6 @@ class Display:
         self.news_title_txt = Label(root,text="")
         self.status_txt     = Label(root,text="")
         self.reference_txt  = Label(root,text="")
-        self.control        = control
   
     def main_title(self, title_text):
         '''
@@ -226,10 +227,11 @@ class Display:
             self.root.after(self.delay) # message reading time is delay (ms) * pixels - so 10 ms * 1000 pxl = 10 s - 
                                         # is depending of the length of the message
 
-    def update_news(self, news_URL):
+    def update_news(self, news_site):
         '''
         Method to update the news and display the news site
         '''
+        news_URL   = self.list_sites[news_site]
         self.feed  = feedparser.parse(news_URL)
         self.items = len(self.feed["items"])
         self.reference_txt.destroy() # remove the previous message after update as this takes a little time
