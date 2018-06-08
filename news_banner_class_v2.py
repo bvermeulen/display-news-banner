@@ -28,6 +28,9 @@ def main():
                  'http://feeds.bbci.co.uk/news/business/rss.xml'}
     try:
         news_site = sys.argv[1]
+        if news_site not in news_list:
+            news_site = 'BBC Business'
+            
     except:  # noqa: E722
         news_site = 'Nu.nl'
 
