@@ -21,7 +21,6 @@ class Controls:
                                button is pressed
          - exit_news         : exit the program
     '''
-
     def __init__(self, root, list_sites):
         self.root = root
         self.run = True
@@ -30,13 +29,12 @@ class Controls:
         self.next = False
         self.previous = False
         self.orig_bg = ''
-        self.exit_banner = False
 
     def create(self):
         '''  Method to create control buttons, including news sites defined
              in the Dictonary
         '''
-        width = 10
+        width = 12
         self.root.grid_rowconfigure(0, weight=1)
         self.root.grid_columnconfigure(0, weight=1)
 
@@ -129,6 +127,7 @@ class Display:
     title_y = 60
     news_box_spacing = 20
     newsbox_y = 200
+    summary_too_long = 3000
 
     newsbox_vertical = padding + title_spacing + title_y + padding\
         + news_box_spacing
@@ -201,24 +200,27 @@ class Display:
                                     wraplength=self.newsbox_x)
         self.news_title_txt.place(x=self.padding,
                                   y=self.padding + self.news_title_y)
+
         status_text = "Nieuws item: " + str(i+1) + " van " + str(self.items)
         self.status_txt = Label(self.newsbox_frame, text=status_text, bd=-1,
                                 fg='grey', bg='white',
                                 font=self.font_reference)
-
         self.status_txt.place(x=self.padding,
                               y=self.newsbox_y-self.padding - 2 * 8)
 
         # show the summary of the news item as scrolling right to left
         # in the news summary frame
         news_summary = clean(self.control, self.feed["entries"][i].summary)
+        if len(news_summary) > self.summary_too_long:
+            news_summary = '###'
+
         news_summary_frame = Frame(self.newsbox_frame,
                                    width=self.newsbox_x - 3 * self.padding,
                                    height=self.summary_y, bg='lightgrey')
         news_summary_frame.place(x=self.padding, y=self.news_summary_y)
+
         news_text = Label(news_summary_frame, text=news_summary,
                           font=self.font_summary, bg='lightgrey')
-
         self.root.update_idletasks()
         # necessary to get the winfo_reqwidth information
 
