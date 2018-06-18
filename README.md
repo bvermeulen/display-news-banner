@@ -10,8 +10,8 @@ Python 3.6
 ```sh
 python3 news_banner_v2.py <argument>
 ```
-  
-<argument>: news_site as per dictionary below, i.e. 'BBC World News'
+
+<argument>: news_site as per dictionary below, for example 'BBC World News'
 
 The news sites available are given in the dictionary news_list.
 
