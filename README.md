@@ -3,12 +3,11 @@
 
 ![](news_banner_screen_shot.png)
 
-Author       : Bruno Vermeulen<br />
-Email        : bruno_vermeulen2001@yahoo.con<br />
-Date         : 21 March 2018<br />
+Author: Bruno Vermeulen<br />
+Email: bruno_vermeulen2001@yahoo.com<br />
+Date: 21 March 2018<br />
 Latest Update: 18 June 2018
 
-Python 3.6
 ## Use: 
 Python 3.6
 
@@ -34,7 +33,13 @@ news_list = {'CNN World News':
              'BBC Business':
              'http://feeds.bbci.co.uk/news/business/rss.xml'}
 ```
-Use the buttons for control: pause, next, previous, exit, selection of news site
+Use the buttons for control: 
+* pause
+* next
+* previous
+* exit
+* selection of news site
+
 Exit by pressing Exit button, "Escape" or the root window exit (X)
 
 This program uses the modules: tkinter, feedparser, time, re, sys
