@@ -135,7 +135,7 @@ class Display:
     summary_y = 30
     news_summary_y = news_title_y + 2*20 + summary_y
     # related to font size news_title and requirement of 2 lines
-    delay = 4  # millisecond delay per pixel
+    delay = 5  # millisecond delay per pixel
     dx = 1
     dy = 0
 
@@ -234,7 +234,7 @@ class Display:
             news_text.place(x=x, y=y)
             x = x - self.dx
             self.root.update()
-            self.root.after(self.delay)
+            accurate_delay(self.delay)
             # message reading time is delay (ms) * pixels -
             # so 10 ms * 1000 pxl = 10 s is depending of the
             # length of the message
@@ -263,3 +263,11 @@ def clean(control, raw_string):
     if clean_string == '':
         control.next_item()
     return clean_string
+
+
+def accurate_delay(delay):
+    ''' Function to provide accurate time delay in millisecond
+    '''
+    _ = time.perf_counter() + delay/1000
+    while time.perf_counter() < _:
+        pass
