@@ -34,7 +34,7 @@ news_list = {'CNN World News':
              'BBC Business':
              'http://feeds.bbci.co.uk/news/business/rss.xml'}
 ```
-Use the buttons for control: <br />
+Use the buttons for control:
 * pause
 * next
 * previous
