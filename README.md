@@ -2,17 +2,17 @@
 > A news banner application to show RSS news headlines.
 ![](news_banner_screen_shot.png)
 Author: Bruno Vermeulen
-Date  : 21 March 2018
+Date  : 21 March 2018 
 Latest: 18 June 2018
 
 Python 3.6
 ## Use: 
 ```sh
 python3 news_banner_v2.py <argument>
-```
+
 
 <argument>: news_site as per dictionary below, for example 'BBC World News'
-
+```
 The news sites available are given in the dictionary news_list.
 
 ```sh
