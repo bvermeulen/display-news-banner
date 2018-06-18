@@ -12,11 +12,12 @@ Latest Update: 18 June 2018<br />
 Python 3.6<br />
 This program uses the modules: tkinter, feedparser, time, re, sys
 feedparser can be downloaded at: https://pypi.python.org/pypi/feedparser<br />
+
 To start the application:
 ```sh
 python3 news_banner_v2.py <argument>
 ```
-argument: news_site as per dictionary below, for example 'BBC World News'. If argument is omitted it takes the news site 'Nu.nl'
+argument: news site name as per dictionary below, for example 'BBC World News'. If the argument is omitted it takes the news site 'Nu.nl'
 
 The news sites available are given in the dictionary news_list.
 ```sh
@@ -33,7 +34,8 @@ news_list = {'CNN World News':
              'BBC Business':
              'http://feeds.bbci.co.uk/news/business/rss.xml'}
 ```
-Use the buttons for control: <br />* pause
+Use the buttons for control: <br />
+* pause
 * next
 * previous
 * exit
