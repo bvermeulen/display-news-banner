@@ -1,22 +1,36 @@
 # display-news-banner
-display news banner - (school project Olof Vermeulen)
+A news banner application to show RSS news headlines.
 
 Author: Bruno Vermeulen
 Date  : 21 March 2018
+Latest: 18 June 2018
 
 Python 3.6
+Use: 
 
-A news banner application to show news headlines from http://www.nu.nl/rss/Algemeen
+python3 news_banner_v2.py <argument>
+  
+<argument>: news_site as per dictionary below, i.e. 'BBC World News'
 
-Use: python news_banner_v1.py
+The news sites available are given in the dictionary news_list.
 
-Exit by pressing "Escape" or the root window exit (X)
+news_list = {'CNN World News':
+             'http://rss.cnn.com/rss/edition_world.rss',
+             'The Guardian':
+             'https://www.theguardian.com/business/economics/rss',
+             'Nu.nl':
+             'http://www.nu.nl/rss/Algemeen',
+             'BBC World News':
+             'http://feeds.bbci.co.uk/news/world/rss.xml',
+             'BBC Technology':
+             'http://feeds.bbci.co.uk/news/technology/rss.xml',
+             'BBC Business':
+             'http://feeds.bbci.co.uk/news/business/rss.xml'}
 
-This program uses: tkinter, feedparser, time
+Use the buttons for control: pause, next, previous, exit, selection of news site
+Exit by pressing Exit button, "Escape" or the root window exit (X)
 
+This program uses the modules: tkinter, feedparser, time, re, sys
 feedparser can be downloaded at: https://pypi.python.org/pypi/feedparser
 
-Took me a long time to figure out how to ticker a text within a bounded window. In the end I found out
-that frame was the appropriate method
-
-
+This application was originally a school project by Olof Vermeulen, Groningen.
