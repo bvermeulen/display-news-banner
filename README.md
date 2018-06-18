@@ -3,14 +3,15 @@
 
 ![](news_banner_screen_shot.png)
 
-Author: Bruno Vermeulen
-
-Date  : 21 March 2018
-
-Latest: 18 June 2018
+Author       : Bruno Vermeulen<br />
+Email        : bruno_vermeulen2001@yahoo.con<br />
+Date         : 21 March 2018<br />
+Latest Update: 18 June 2018
 
 Python 3.6
 ## Use: 
+Python 3.6
+
 ```sh
 python3 news_banner_v2.py <argument>
 ```
