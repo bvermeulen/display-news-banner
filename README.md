@@ -10,7 +10,7 @@ Latest Update: 18 June 2018<br />
 *This application was originally a school project by Olof Vermeulen, Groningen.*
 ## Use: 
 Python 3.6<br />
-This program uses the modules: tkinter, feedparser, time, re, sys
+This program uses the modules: tkinter, feedparser, time, re, sys.
 feedparser can be downloaded at: https://pypi.python.org/pypi/feedparser<br />
 
 To start the application:
