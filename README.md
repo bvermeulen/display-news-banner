@@ -1,6 +1,6 @@
 # display-news-banner
 > A news banner application to show RSS news headlines.
-![](slssl.png)
+![](news_banner_screen_shot.png)
 Author: Bruno Vermeulen
 Date  : 21 March 2018
 Latest: 18 June 2018
