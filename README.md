@@ -7,15 +7,15 @@ Latest: 18 June 2018
 
 Python 3.6
 ## Use: 
-'''sh
+```sh
 python3 news_banner_v2.py <argument>
-'''
+```
   
 <argument>: news_site as per dictionary below, i.e. 'BBC World News'
 
 The news sites available are given in the dictionary news_list.
 
-'''sh
+```sh
 news_list = {'CNN World News':
              'http://rss.cnn.com/rss/edition_world.rss',
              'The Guardian':
@@ -28,7 +28,7 @@ news_list = {'CNN World News':
              'http://feeds.bbci.co.uk/news/technology/rss.xml',
              'BBC Business':
              'http://feeds.bbci.co.uk/news/business/rss.xml'}
-'''
+```
 Use the buttons for control: pause, next, previous, exit, selection of news site
 Exit by pressing Exit button, "Escape" or the root window exit (X)
 
