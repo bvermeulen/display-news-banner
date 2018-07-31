@@ -1,16 +1,15 @@
-from tkinter import Tk
 from module_news import Controls, Display, root
-
 '''   Newsbanner application for python 3.6
 
       start:
       python news.py [-b] [news_site]
 '''
-def main():
 
+
+def main():
+    '''  main program of news site display '''
     control = Controls()
     control.handleargs()
-    print('display: ', control.displaybanner)
     control.create()
     news = Display(control)
     control.site_select(control.news_site)

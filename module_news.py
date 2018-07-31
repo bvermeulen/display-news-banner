@@ -4,7 +4,6 @@ import feedparser
 import time
 import re
 import sys
-import pdb
 '''  Module for for classes:
         - Controls
         - Display
@@ -15,14 +14,21 @@ import pdb
 '''
 width = 850
 height = 400
-bgcolor = '#58024b'
+bgcolor = '#58024b'  # deep purple
 root = Tk()
 root.title('News feed')
 root.geometry(f'{width+140}x{height}')
 root.configure(background=bgcolor)
 summary_too_long = 3000
-width_char = 100
+width_char = 83
 height_char = 6
+padding = 3
+newsbox_y = 275
+newsbox_x = width-2*padding
+banner_height = 30
+delay = 5  # millisecond delay per pixel
+dx = 1
+
 
 class Controls:
     '''  Class Controls containing the methods to control:
@@ -47,7 +53,6 @@ class Controls:
 
     def handleargs(self):
         '''  handle the arguments: python news.py [-b] <news_site> '''
-        print(sys.argv)
         try:
             if sys.argv[1] == '-b':
                 self.displaybanner = True
@@ -63,7 +68,7 @@ class Controls:
             self.news_site = sys.argv[argid]
             if self.news_site not in news_list:
                 self.news_site = 'BBC Business'
-        except IdexError:
+        except IndexError:
             self.news_site = 'Nu.nl'
 
     def create(self):
@@ -71,7 +76,7 @@ class Controls:
              in the Dictonary '''
         bwidth = 8
         padx = 3
-        buttonframe = Frame(root, bd=6, relief='sunken')
+        buttonframe = Frame(root, bd=2, relief='sunken')
 
         self.pause_button = Button(buttonframe, text='Pause', width=bwidth,
                                    command=self.pause_status)
@@ -100,7 +105,7 @@ class Controls:
         buttonframe.pack(side='bottom', anchor='sw')
 
         bwidth = 12
-        newsbuttonframe = Frame(root, bd=6, relief='sunken')
+        newsbuttonframe = Frame(root, bd=2, relief='sunken')
         rows = 10
         self.site_button = {}
         for i, site in enumerate(news_list):
@@ -181,67 +186,43 @@ class Display:
          - news_banner       : displays summary in banner
          - update_news       : update news information feed
     '''
-    padding = 3
-    title_spacing = 5
-    title_y = 60
-    news_box_spacing = 10
-    newsbox_y = 275
-
-    newsbox_vertical = padding + title_spacing + title_y + padding\
-        + news_box_spacing
-    news_title_y = 40
-    summary_y = 20
-    banner_height = 30
-    news_summary_y = news_title_y + 3*20 + summary_y
-    # related to font size news_title and requirement of 2 lines
-    delay = 5  # millisecond delay per pixel
-    dx = 1
-    dy = 0
     font_main_title = ('Calibri', 32, 'bold')
     font_news_title = ('Calibri', 20, 'bold')
     font_summary_banner = ('Calibri', 16)
     font_summary_box = ('Calibri', 12)
     font_reference = ('Calibri', 8)
-    title_x = width - 2 * padding
-    newsbox_x = width - 2 * padding
-    news_title_txt = Label(root, text="")
-    status_txt = Label(root, text="")
-    reference_txt = Label(root, text="")
+    siteframe = Frame(root)
+    newsframe = Frame(root)
+    summaryframe = Frame(root)
+    news_title_txt = Frame(root)
+    status_txt = Frame(root)
+    reference_txt = Frame(root)
 
     def __init__(self, control):
         self.control = control
         root.bind("<Escape>", control.exit_news)
         root.protocol('WM_DELETE_WINDOW', control.exit_news)
-        self.siteframe = Frame(root)
-        self.newsframe = Frame(root)
-        self.summaryframe = Frame(root)
-        self.news_title_txt = Frame(root)
-        self.status_txt = Frame(root)
 
     def site_title(self):
         '''  Method to display the name of the site '''
-        #_tl = (self.padding, self.padding + self.title_spacing)
         self.siteframe.destroy()
         self.siteframe = Frame(root,
-                               width=self.newsbox_x,
-                               height=self.newsbox_y,
                                relief='ridge',
                                highlightbackground="black",
                                highlightcolor="black", highlightthickness=1,
                                bg='white')
         # highlight etc is a trick to get border color
-        self.siteframe.pack(padx=2*self.padding, pady=2*self.padding,
+        self.siteframe.pack(padx=2*padding, pady=2*padding,
                             fill='both')
-        #title_frame.place(x=_tl[0], y=_tl[1])
 
         site_title = Label(self.siteframe,
                            text=self.control.news_site,
                            bd=-1, fg='black',
-                           width = 28,
-                           height = 1,
+                           width=28,
+                           height=1,
                            bg='white', font=self.font_main_title,
-                           justify='center',
-                          )
+                           justify='center')
+
         site_title.pack(fill='both')
 
     def news_window(self):
@@ -249,21 +230,18 @@ class Display:
              item title, news summary '''
         self.newsframe.destroy()
         self.newsframe = Frame(root,
-                               width=self.newsbox_x,
-                               height=self.newsbox_y,
                                relief='ridge',
                                highlightbackground="black",
                                highlightcolor="black",
                                highlightthickness=1,
                                bg='white')
-        self.newsframe.pack(padx=2*self.padding, pady=2*self.padding,
+        self.newsframe.pack(padx=2*padding, pady=2*padding,
                             fill='both')
         reference_txt = Label(self.newsframe, text=self.reference_text,
                               bd=-1, fg='grey', bg='white',
                               font=self.font_reference)
-        reference_txt.pack(side='top', padx=self.padding, pady=self.padding,
+        reference_txt.pack(side='top', padx=padding, pady=padding,
                            anchor='w')
-        # reference_txt.place(x=self.padding, y=self.padding)
 
     def news_title(self, i):
         '''  Method to display news item title and reference texts'''
@@ -275,22 +253,17 @@ class Display:
                                     anchor='nw', fg='darkblue', bg='white',
                                     font=self.font_news_title,
                                     justify='center',
-                                    wraplength=self.newsbox_x)
-        self.news_title_txt.pack(padx=self.padding, pady=self.padding,
+                                    wraplength=newsbox_x)
+        self.news_title_txt.pack(padx=padding, pady=padding,
                                  anchor='w', fill='both')
 
-        # self.news_title_txt.place(x=self.padding,
-        #                           y=self.padding + self.news_title_y)
-
-        status_text = ''.join(['Nieuws item: ', str(i+1),' van ',
-                               str(self.items),'    '])
+        status_text = ''.join(['Nieuws item: ', str(i+1), ' van ',
+                               str(self.items), '    '])
         self.status_txt = Label(self.newsframe, text=status_text, bd=-1,
                                 fg='grey', bg='white',
                                 font=self.font_reference)
-        self.status_txt.pack(side='bottom', padx=self.padding,
-                              pady=self.padding, anchor='w')
-        # self.status_txt.place(x=self.padding,
-        #                       y=self.newsbox_y-self.padding - 2 * 8)
+        self.status_txt.pack(side='bottom', padx=padding,
+                             pady=padding, anchor='w')
 
     def display_news(self):
         '''  Method to display the news item: title and summary banner plus
@@ -328,22 +301,21 @@ class Display:
         '''
         self.summaryframe.destroy()
         self.summaryframe = Frame(self.newsframe, bg='lightgrey')
-        self.summaryframe.pack(padx=self.padding, pady=self.padding,
+        self.summaryframe.pack(padx=padding, pady=padding,
                                anchor='w', fill='both')
-        # self.summaryframe.place(x=self.padding, y=self.news_summary_y)
 
-        news_text = Label(self.summaryframe,
-                          text=news_summary,
-                          width=width_char-17,
-                          height=height_char,
-                          justify='left',
-                          anchor='nw',
-                          font=self.font_summary_box,
-                          wraplength=self.newsbox_x - 4 * self.padding,
-                         )
+        news_txt = Text(self.summaryframe,
+                        font=self.font_summary_box,
+                        wrap='word',
+                        bg='lightgrey',)
 
-        news_text.pack()
-        #news_text.insert('end', news_summary)
+        news_txt.insert('end', news_summary)
+        scrolly = Scrollbar(self.summaryframe, orient='vertical', width=8,
+                            command=news_txt.yview)
+        scrolly.pack(side='right', fill='both')
+        news_txt['yscrollcommand'] = scrolly.set
+        news_txt.config(state='disabled')
+        news_txt.pack(fill='both')
 
         x = 0
         buffer = max(80, len(news_summary))
@@ -356,30 +328,32 @@ class Display:
         '''  display news in a banner
         '''
         self.summaryframe.destroy()
-        self.summaryframe = Frame(self.newsframe,
-                                   width=self.newsbox_x - 3 * self.padding,
-                                   height=self.banner_height, bg='lightgrey')
-        self.summaryframe.pack(padx=self.padding, pady=self.padding,
-                               anchor='w', fill='both')
+        if len(news_summary) > summary_too_long:
+                news_summary = '###'
 
-        # self.summaryframe.place(x=self.padding, y=self.news_summary_y)
+        self.summaryframe = Frame(self.newsframe,
+                                  width=newsbox_x-3*padding,
+                                  height=banner_height,
+                                  bg='lightgrey')
+        self.summaryframe.pack(padx=padding, pady=padding,
+                               anchor='w', fill='both')
 
         news_text = Label(self.summaryframe, text=news_summary,
                           font=self.font_summary_banner, bg='lightgrey')
         root.update_idletasks()
         # necessary to get the winfo_reqwidth information
 
-        pixels = int(news_text.winfo_reqwidth() + 0.5 * self.newsbox_x)
+        pixels = int(news_text.winfo_reqwidth()+0.5*newsbox_x)
         x = width
         y = 0
 
         while x > (width-pixels) and not self.control.exit_banner:
-            # move text object by increments dx, dy
+            # move text object by increments dx
             # -dx --> right to left
             news_text.place(x=x, y=y)
-            x = x - self.dx
+            x = x-dx
             root.update()
-            accurate_delay(self.delay)
+            accurate_delay(delay)
             # message reading time is delay (ms) * pixels -
             # so 10 ms * 1000 pxl = 10 s is depending of the
             # length of the message
@@ -392,7 +366,7 @@ class Display:
         self.items = len(self.feed["items"])
         self.reference_txt.destroy()
         self.reference_text = ''.join(['Nieuws update van ', news_URL, ' op ',
-                              time.ctime()])
+                                       time.ctime()])
 
 
 def clean(control, raw_string):
@@ -400,13 +374,6 @@ def clean(control, raw_string):
     '''
     clean_string = re.sub('&nbsp;', ' ', raw_string)
     clean_string = re.sub(r'<.*?>', '', clean_string)
-
-    if clean_string == '':
-        control.next_item()
-
-    if len(clean_string) > summary_too_long:
-        clean_string = '###'
-
     return clean_string
 
 
