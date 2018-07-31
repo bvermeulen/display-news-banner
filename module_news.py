@@ -20,10 +20,7 @@ root.title('News feed')
 root.geometry(f'{width+140}x{height}')
 root.configure(background=bgcolor)
 summary_too_long = 3000
-width_char = 83
-height_char = 6
 padding = 3
-newsbox_y = 275
 newsbox_x = width-2*padding
 banner_height = 30
 delay = 5  # millisecond delay per pixel
