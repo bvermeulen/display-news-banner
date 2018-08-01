@@ -14,11 +14,12 @@ import sys
 '''
 width = 850
 height = 400
-bgcolor = '#58024b'  # deep purple
+bg_purple = '#58024b'
+bg_darkblue = '#00008B'
 root = Tk()
 root.title('News feed')
-root.geometry(f'{width+140}x{height}')
-root.configure(background=bgcolor)
+root.geometry(f'{width+250}x{height}')
+root.configure(background=bg_darkblue)
 summary_too_long = 3000
 padding = 3
 newsbox_x = width-2*padding
@@ -42,6 +43,9 @@ class Controls:
     '''
 
     def __init__(self):
+        root.bind("<Escape>", self.exit_news)
+        root.protocol('WM_DELETE_WINDOW', self.exit_news)
+        root.bind("<b>", self.change_background)
         self.run = True
         self.pause = False
         self.next = False
@@ -164,6 +168,13 @@ class Controls:
         self.pause = False
         self.exit_banner = True
 
+    def change_background(self, *event):
+        '''  Method to change background color '''
+        if root['bg'] == bg_purple:
+            root.config(bg=bg_darkblue)
+        else:
+            root.config(bg=bg_purple)
+
     def exit_news(self, *event):
         '''  Method to leave the program '''
         print("we will leave the program now....")
@@ -197,8 +208,6 @@ class Display:
 
     def __init__(self, control):
         self.control = control
-        root.bind("<Escape>", control.exit_news)
-        root.protocol('WM_DELETE_WINDOW', control.exit_news)
 
     def site_title(self):
         '''  Method to display the name of the site '''
